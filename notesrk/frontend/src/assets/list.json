@@ -1,0 +1,80 @@
+[{
+    "id":1,
+    "name":"DBMS",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":0,
+    "category":"free",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":2,
+    "name":"OS",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":0,
+    "category":"free",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":3,
+    "name":"CO",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":0,
+    "category":"free",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":4,
+    "name":"DM",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":0,
+    "category":"free",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":5,
+    "name":"TOC",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":0,
+    "category":"free",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":6,
+    "name":"DE",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":0,
+    "category":"free",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":7,
+    "name":"Enterprenurship",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":100,
+    "category":"Management",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":8,
+    "name":"Managemnet",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":100,
+    "category":"Management",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":9,
+    "name":"Food",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":200,
+    "category":"Open Elective",
+    "image":"/research-paper-concept-illustration.png"
+ },
+ {
+    "id":10,
+    "name":"RE",
+    "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    "price":200,
+    "category":"Open Elective",
+    "image":"/research-paper-concept-illustration.png"
+ }]
