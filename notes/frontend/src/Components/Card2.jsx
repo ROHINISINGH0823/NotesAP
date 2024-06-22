@@ -1,15 +1,15 @@
 import React from "react";
 
-function Card({ item }) {
+function Card2({ item }) {
   return (
     <>
       <div className="mt-4 my-3 p-3">
-        <div className=" roh1 card w-90 bg-base-100 shadow-xl hover:scale-105 duration-200 dark:bg-slate-900 dark:text-white dark:border ">
+        <div className="roh card w-90 bg-base-100 shadow-xl hover:scale-105 duration-200 dark:bg-slate-900 dark:text-white dark:border dark:bg-slate-900 dark:text-white dark:border">
           <figure>
             <img src={item.image} alt="Shoes" />
           </figure>
           <div className="card-body dark:bg-slate-900 dark:text-white ">
-            <h2 className="card-title">
+            <h2 className="card-title ">
               {item.name}
               <div className="badge badge-secondary">{item.category}</div>
             </h2>
@@ -27,4 +27,4 @@ function Card({ item }) {
   );
 }
 
-export default Card;
+export default Card2;

@@ -49,7 +49,7 @@ function FreeNotes() {
     <>
       <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
         <div>
-          <h1 className="text-xl font-semi-bold pb-2">Free Demo Courses</h1>
+          <h1 className=" text-xl font-semi-bold pb-2">Free Demo Courses</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti
             tempore, voluptatibus doloremque commodi repudiandae consequuntur
