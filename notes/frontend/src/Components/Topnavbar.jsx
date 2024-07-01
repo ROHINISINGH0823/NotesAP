@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Login from "./Login";
 
 
 function Topnavbar() {
@@ -173,10 +174,11 @@ function Topnavbar() {
               <a
                 className={`bg-white px-6 py-2 duration-300 cursor-pointer login ${
                   sticky ? "txt duration-300 transition-all ease-in-out " : ""
-                }`}
+                }` }onClick={()=>document.getElementById("my_modal_3").showModal()}
               >
                 Login
               </a>
+              <Login/>
             </div>
           </div>
         </div>
