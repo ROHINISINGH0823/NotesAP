@@ -1,13 +1,28 @@
-import React from 'react';
-import list from '../assets/list';
+import React, { useEffect, useState } from 'react';
+
 import Card from './Card';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Card2 from './Card2';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 export default function Course() {
-  
+  const [notesp,setNotes]=useState([]);
+
+  useEffect(()=>{
+    const getNotes=async()=>{
+    try{
+      const res = await axios.get("http://localhost:4001/notes");
+      console.log(res.data);
+      setNotes(res.data);
+    }catch(error){
+      console.log(error);
+    }
+  };
+  getNotes();
+},[]);
+
   return (
     <div className=' r max-w-screen-2xl container mx-auto md:px-20 px-4'>
       <div className='r items-center justify-center text-center'>
@@ -29,7 +44,7 @@ export default function Course() {
         <div className=' mt-12  grid grid-cols-1 md:grid-cols-4 '>
           {
             
-              list.map((item)=>(
+              notesp.map((item)=>(
                <Card2 key={item.id} item={item}></Card2>
               ))
           

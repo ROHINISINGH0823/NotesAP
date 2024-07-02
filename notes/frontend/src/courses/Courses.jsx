@@ -2,7 +2,7 @@ import React from 'react'
 import Topnavbar from '../Components/Topnavbar'
 import Footer from '../Components/Footer'
 import Course from '../Components/Course'
-import list from '../assets/list.json'
+
 import Banner from '../Components/Banner'
 import Navbar from '../Components/Navbar'
 

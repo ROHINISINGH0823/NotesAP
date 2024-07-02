@@ -1,15 +1,31 @@
 import React from "react";
-
+import  { useEffect, useState } from 'react';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-
-import list from "/src/assets/list.json";
 import Card from "./Card";
+import axios from "axios";
+
 
 function FreeNotes() {
-  const filterData = list.filter((data) => data.category === "free");
 
+  const [notesp,setNotes]=useState([]);
+
+  useEffect(()=>{
+    const getNotes=async()=>{
+    try{
+      const res = await axios.get("http://localhost:4001/notes");
+      console.log(res.data);
+      setNotes(res.data.filter((data) => data.category === "free"));
+    }catch(error){
+      console.log(error);
+    }
+  };
+  getNotes();
+},[]);
+
+
+  
   var settings = {
     dots: true,
     infinite: false,
@@ -59,7 +75,7 @@ function FreeNotes() {
         </div>
         <div>
           <Slider {...settings}>
-            {filterData.map((item) => (
+            {notesp.map((item) => (
               <Card item={item} key={item.id} />
             ))}
           </Slider>
