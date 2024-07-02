@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Login from './Login';
 import { useForm } from "react-hook-form";
+import axios from 'axios';
 
 
 
@@ -11,11 +12,31 @@ const Signup = () => {
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
       } = useForm()
     
-      const onSubmit = (data) => console.log(data)
+      const onSubmit = async(data) => {
+        const userInfo={
+          fullname:data.fullname,
+          email:data.email,
+          password:data.password,
+        }
+       await axios.post("http://localhost:4001/user/signup",userInfo)
+        .then((res)=>{
+          console.log(res.data);
+          if(res.data)
+            {
+              alert("Signup Successfully");
+            }
+            localStorage.setItem("Users",JSON.stringify(res.data.user));
+        }).catch((err)=>{
+         if(err.response)
+          {
+            console.log(err);
+            alert("Error: "+err.response.data.message);
+          }
+        })
+      };
    
     return (
         <div className='flex h-screen items-center justify-center '>
@@ -30,8 +51,8 @@ const Signup = () => {
      <div className='mt-4 space-y-2'>
     <span>Name</span>
     <br />
-    <input type="text" placeholder='Enter your name' className='w-80 px-3 py-1 border rounded-md outline-none' {...register("name", { required: true })}></input>
-    {errors.name && <span className="text-sm text-red-500">This field is required</span>}
+    <input type="text" placeholder='Enter your name' className='w-80 px-3 py-1 border rounded-md outline-none' {...register("fullname", { required: true })}></input>
+    {errors.fullname && <span className="text-sm text-red-500">This field is required</span>}
     </div>
 
      {/*Email*/}
@@ -56,12 +77,14 @@ const Signup = () => {
     <button className='bg-pink-500 text-white rounded-md px-3 py-1 hover:bg-pink-700 duration-200'>
       Signup
     </button>
+    </div>
+    </form>
   <p className='text-xl'>
    Have account {" "} <button to="/" className='underline text-blue-500 cursor-pointer' onClick={()=> document.getElementById("my_modal_3").showModal()}>LOGIN</button>
   </p>{" "}
 <Login/>
- </div>
- </form>
+
+
   </div>
 </div>
         </div>
