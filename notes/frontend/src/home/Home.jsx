@@ -1,5 +1,5 @@
 import React from 'react'
-import Topnavbar from '../Components/Topnavbar'
+import Navbar from '../Components/Navbar'
 import Banner from '../Components/Banner'
 import FreeNotes from '../Components/FreeNotes'
 import Footer from '../Components/Footer'
@@ -7,7 +7,7 @@ import Footer from '../Components/Footer'
 export default function Home() {
   return (
     <>
-    <Topnavbar/>
+    <Navbar/>
       <Banner />
       <FreeNotes />
       <Footer />
