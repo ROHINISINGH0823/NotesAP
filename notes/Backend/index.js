@@ -6,6 +6,8 @@ import cors from "cors";
 
 import notesRoute from "./route/notes.route.js"
 import userRoute from "./route/user.route.js"
+import topicsRouter  from "./route/topics.js"
+import uploadsRouter from "./route/uploads.js"
 
 const app =express();
 app.use(cors());
@@ -35,6 +37,13 @@ app.get('/', (req, res) => {
 
 app.use("/notes",notesRoute);
 app.use("/user",userRoute);
+
+
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
+app.use('/topics', topicsRouter);
+app.use('/upload', uploadsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`)

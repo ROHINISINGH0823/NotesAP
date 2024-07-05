@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Login from "./Login";
-import { useAuth } from "../context/AuthProvider";
 import Logout from "./Logout";
-
+import { useAuth } from "../context/AuthProvider";
 
 function Navbar() {
-const [authUser,setAuthUser]=useAuth()
+  const [authUser, setAuthUser] = useAuth();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -41,6 +40,12 @@ const [authUser,setAuthUser]=useAuth()
     <>
       <li>
         <a href="/">Home</a>
+      </li>
+      <li>
+        <a href="/admin-upload">Admin</a>
+      </li>
+      <li>
+        <a href="/topic/:id">PDF</a>
       </li>
       <li>
         <a href="/course">Course</a>
@@ -148,10 +153,10 @@ const [authUser,setAuthUser]=useAuth()
               </svg>
             </label>
 
-            {authUser ?(
-              <Logout/>
-            ):(
-               <div className="">
+            {authUser ? (
+              <Logout />
+            ) : (
+              <div className="">
                 <a
                   className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer"
                   onClick={() =>
@@ -161,9 +166,8 @@ const [authUser,setAuthUser]=useAuth()
                   Login
                 </a>
                 <Login />
-              </div> 
-              )}
-            
+              </div>
+            )}
           </div>
         </div>
       </div>
