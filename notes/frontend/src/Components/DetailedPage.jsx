@@ -17,13 +17,17 @@ const DetailedPage = () => {
   useEffect(() => {
     const fetchTopicData = async () => {
       try {
+        // Fetch all topics
         const topicsResponse = await axios.get('http://localhost:4001/topics');
         setTopics(topicsResponse.data);
 
+        // Find the selected topic by ID
         const selectedTopic = topicsResponse.data.find(topic => topic._id === id);
         
         if (selectedTopic) {
           setSelectedTopic(selectedTopic);
+
+          // Fetch subtopics of the selected topic
           const subtopicsResponse = await axios.get(`http://localhost:4001/topics/${id}/subtopics`);
           setSubtopics(subtopicsResponse.data);
         }
@@ -39,9 +43,11 @@ const DetailedPage = () => {
     fetchTopicData();
   }, [id]);
 
+  // Function to handle clicking on a subtopic
   const handleSubtopicClick = async (topicId, subtopicId) => {
     console.log(`Fetching PDF for Topic ID: ${topicId}, Subtopic ID: ${subtopicId}`);
     try {
+      // Fetch PDF URL for the selected subtopic
       const response = await axios.get(`http://localhost:4001/files/${topicId}/${subtopicId}`);
       console.log('PDF URL Response:', response.data);
       setPdfUrl(response.data.pdfUrl); // Assuming your API returns { pdfUrl: 'http://path/to/pdf' }
@@ -51,10 +57,12 @@ const DetailedPage = () => {
     }
   };
 
+  // Function to handle clicking on a topic
   const handleTopicClick = async (topic) => {
     setSelectedTopic(topic);
     if (topic) {
       try {
+        // Fetch subtopics of the selected topic
         const response = await axios.get(`http://localhost:4001/topics/${topic._id}/subtopics`);
         setSubtopics(response.data);
       } catch (error) {
@@ -77,10 +85,11 @@ const DetailedPage = () => {
           selectedTopic={selectedTopic}
           onTopicClick={handleTopicClick}
           onSubtopicClick={handleSubtopicClick}
+          setActivePdf={setPdfUrl}
         />
       )}
       <div className="pdf-container flex-grow overflow-y-auto mt-6 md:mt-0 md:ml-6">
-        {pdfUrl && <PDFRenderer pdfUrl={pdfUrl} />}
+        {pdfUrl && <PDFRenderer pdfUrl={pdfUrl} />} {/* Render PDF if pdfUrl is set */}
       </div>
     </div>
   );

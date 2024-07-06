@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicClick }) => {
+const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicClick,setActivePdf }) => {
+ 
   return (
     <div className="sidebar w-full md:w-1/4 bg-gray-100 p-4 rounded-lg shadow-md">
       {selectedTopic ? (
@@ -10,7 +11,7 @@ const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicCli
           <ul>
             {subtopics.map(subtopic => (
               <li key={subtopic._id} className="mb-2">
-                <button onClick={() => onSubtopicClick(selectedTopic._id, subtopic._id)} className="text-blue-500 hover:underline">{subtopic.name}</button>
+                <button onClick={()=> setActivePdf(`http://localhost:4001/files/${selectedTopic._id}/${subtopic._id}`)} className="text-blue-500 hover:underline">{subtopic.name}</button>
               </li>
             ))}
           </ul>
