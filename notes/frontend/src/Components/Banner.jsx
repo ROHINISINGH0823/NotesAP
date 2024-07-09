@@ -1,14 +1,32 @@
-import React from "react";
-import banner from "/banner.png";
+import React from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+
+import './styles.css';
+
+// import required modules
+import { EffectCards } from 'swiper/modules';
+
+import b3 from "/b3.png";
+import b1 from "/b1.png";
+import b2 from "/b2.png";
+import b4 from "/b4.png";
+import b5 from "/b5.png";
+// Add more images as needed
+
 function Banner() {
   return (
     <>
-      <div className=" max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-10">
+      <div className="max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-10">
         <div className="w-full order-2 md:order-1 md:w-1/2 mt-12 md:mt-36">
           <div className="space-y-8">
             <h1 className="text-2xl md:text-4xl font-bold">
               Hello, welcomes here to learn something{" "}
-              <span className="text-pink-500">new everyday!!!</span>
+              <span className="gradient-text">new everyday!!!</span>
             </h1>
             <p className="text-sm md:text-xl">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor,
@@ -28,14 +46,32 @@ function Banner() {
               <input type="text" className="grow" placeholder="Email" />
             </label>
           </div>
-          <button className="btn mt-6 btn-secondary">Get Started</button>
+          <button className="btn mt-6 bg-custom-purple text-white hover:bg-custom-purple-dark focus:bg-custom-purple-dark">Get Started</button>
         </div>
-        <div className=" order-1 w-full mt-20 md:w-1/2">
-          <img
-            src={banner}
-            className="md:w-[550px] md:h-[460px] md:ml-12"
-            alt=""
-          />
+        <div className="order-1 w-full mt-20 md:w-1/2 relative">
+          <Swiper
+            effect={'cards'}
+            grabCursor={true}
+            modules={[EffectCards]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <img src={b1} alt="Banner 1" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={b3} alt="Banner 2" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={b2} alt="Banner 3" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={b4} alt="Banner 4" />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src={b5} alt="Banner 5" />
+            </SwiperSlide>
+            {/* Add more SwiperSlide components as needed */}
+          </Swiper>
         </div>
       </div>
     </>

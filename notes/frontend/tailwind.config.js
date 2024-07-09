@@ -7,7 +7,10 @@ export default {
   ],
   darkMode:"class",
   theme: {
-    extend: {},
+    extend: { colors: {
+      'custom-purple': '#450A5B',
+      'custom-purple-dark': '#340B42',
+    },},
   },
   plugins: [daisyui,
   ],

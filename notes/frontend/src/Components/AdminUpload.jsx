@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import b1 from "/b1.png";
 
 const AdminUpload = () => {
   const [file, setFile] = useState(null);
@@ -41,12 +42,20 @@ const AdminUpload = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col space-y-4 mt-6">
-      <input type="file" onChange={handleFileChange} required />
-      <input type="text" placeholder="Topic" value={topic} onChange={handleTopicChange} required />
-      <input type="text" placeholder="Subtopic" value={subtopic} onChange={handleSubtopicChange} required />
-      <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
-    </form>
+    <div className="flex justify-center items-center h-screen">
+      <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8">
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input type="file" onChange={handleFileChange} required />
+          <input type="text" placeholder="Topic" value={topic} onChange={handleTopicChange} required />
+          <input type="text" placeholder="Subtopic" value={subtopic} onChange={handleSubtopicChange} required />
+          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
+        </form>
+      </div>
+      {/* Placeholder for the image */}
+      <div className="flex-shrink-0 ml-4">
+        <img src="b1.png" alt="Image" className="w-64 h-64 object-cover rounded-lg shadow-lg" />
+      </div>
+    </div>
   );
 };
 

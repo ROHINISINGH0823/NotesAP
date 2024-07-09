@@ -3,6 +3,7 @@ import { useState } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
+import './styles.css';
 
 function Navbar() {
   const [authUser, setAuthUser] = useAuth();
@@ -36,6 +37,7 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const navItems = (
     <>
       <li>
@@ -58,17 +60,14 @@ function Navbar() {
       </li>
     </>
   );
+
   return (
     <>
-      <div
-        className={` max-w-screen-2xl container mx-auto md:px-20 px-4 dark:bg-slate-800 dark:text-white fixed top-0 left-0 right-0 z-50 ${
-          sticky
-            ? "sticky-navbar shadow-md bg-base-200 dark:bg-slate-700 dark:text-white duration-300 transition-all ease-in-out"
-            : ""
-        }`}
+      <div 
+        className={`max-w-screen-2xl container mx-auto md:px-20 px-4 ${sticky ? "sticky-navbar b-blue-500 text-white" : "normal-navbar b-black text-white"} fixed top-0 left-0 right-0 z-50 duration-300 transition-all ease-in-out`}
       >
-        <div className="navbar ">
-          <div className="navbar-start">
+        <div className="navbar nav">
+          <div className="nav navbar-start">
             <div className="dropdown">
               <div
                 tabIndex={0}
@@ -99,11 +98,11 @@ function Navbar() {
             </div>
             <a className=" text-2xl font-bold cursor-pointer">bookStore</a>
           </div>
-          <div className="navbar-end space-x-3">
+          <div className="  navbar-end space-x-3">
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1">{navItems}</ul>
             </div>
-            <div className="hidden md:block">
+            <div className=" hidden md:block">
               <label className=" px-3 py-2 border rounded-md flex items-center gap-2">
                 <input
                   type="text"

@@ -1,0 +1,112 @@
+
+
+
+
+body {
+  background: linear-gradient(45deg, #f5eef8 , #F4ECF7);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+
+.swiper {
+  width: 350px;
+  height: 420px;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.swiper-slide:nth-child(1n) {
+  background-color: #EACFF4;
+}
+
+
+
+/* NAVBAR CSS */
+.b-black {
+    background-color: #320342;
+  }
+  
+  .b-blue-500 {
+    background: linear-gradient(90deg, 
+    #20002c
+    , #cbb4d4);  /* Blue background for sticky navbar */
+  }
+ 
+  /*text color of heading*/
+
+  
+  .gradient-text {
+    background: linear-gradient(90deg,#cbb4d4, #20002c); /* Define your gradient colors here */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+
+  .bt1
+  {
+    background-color: #320342;
+  }
+  .modal {
+    display: none; /* Hide by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    z-index: 9999; /* Ensure modal is on top */
+    overflow: auto; /* Allow scrolling when modal content exceeds viewport */
+  }
+  
+ 
+  
+  .text-input-color {
+    color: #320342; /* Desired text color */
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .modal-box {
+    animation: modalFadeIn 0.5s ease-in-out;
+  }
+  
+  .input-container {
+    animation: slideInLeft 0.5s ease-in-out;
+  }
+  
+  

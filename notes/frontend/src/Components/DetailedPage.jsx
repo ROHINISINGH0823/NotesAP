@@ -5,6 +5,7 @@ import PDFRenderer from './PDFRenderer';
 import { ClipLoader } from 'react-spinners';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Navbar from './Navbar'; // Import the Navbar component
 
 const DetailedPage = () => {
   const { id } = useParams();
@@ -75,21 +76,32 @@ const DetailedPage = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row w-full max-w-6xl mt-6">
-      {loading ? (
-        <ClipLoader size={50} color={"#123abc"} loading={loading} />
-      ) : (
+    <div>
+      <Navbar /> {/* Render the Navbar component */}
+      <div className="flex flex-col md:flex-row h-screen">
         <Sidebar
           topics={topics}
           subtopics={subtopics}
           selectedTopic={selectedTopic}
           onTopicClick={handleTopicClick}
-          onSubtopicClick={handleSubtopicClick}
           setActivePdf={setPdfUrl}
+          className="mt-8 md:mt-0" // Apply top margin for mobile and above screens
         />
-      )}
-      <div className="pdf-container flex-grow overflow-y-auto mt-6 md:mt-0 md:ml-6">
-        {pdfUrl && <PDFRenderer pdfUrl={pdfUrl} />} {/* Render PDF if pdfUrl is set */}
+        <div className="pdf-container flex-grow p-1 overflow-y-auto ml-0 md:ml-20 mt-9 md:mt-0 md:h-full">
+          {loading ? (
+            <div className="flex justify-center items-center h-full w-full">
+              <ClipLoader size={50} color={"#123abc"} loading={loading} />
+            </div>
+          ) : (
+            <>
+              {pdfUrl ? (
+                <PDFRenderer pdfUrl={pdfUrl} />
+              ) : (
+                <div className="p-4 bg-gray-100 rounded-lg shadow-md">Select a topic to view the PDF</div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
