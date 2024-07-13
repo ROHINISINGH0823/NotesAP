@@ -3,7 +3,7 @@ import { Worker, Viewer } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 
 const PDFRenderer = ({ pdfUrl }) => {
-  const containerHeight = "calc(100vh - 4rem)"; // Set the height dynamically to take the whole screen minus some margin
+  const containerHeight = "740px"; // Set the desired height in pixels
   const [numPages, setNumPages] = useState(null);
   const [error, setError] = useState(null);
 
