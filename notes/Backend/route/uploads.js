@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 
 router.post('/', upload.single('file'), async (req, res) => {
   try {
-    const { topic, subtopic } = req.body;
+    const { topic, subtopic, tags } = req.body;
     const filePath = req.file.path;
     
     let topicDoc = await Topic.findOne({ name: topic });
@@ -27,7 +27,8 @@ router.post('/', upload.single('file'), async (req, res) => {
       topicDoc = new Topic({ name: topic, subtopics: [] });
     }
 
-    topicDoc.subtopics.push({ name: subtopic, filePath });
+    const subtopicObj = { name: subtopic, filePath, tags: tags.split(',') }; // Assuming tags are sent as a comma-separated string
+    topicDoc.subtopics.push(subtopicObj);
     await topicDoc.save();
 
     res.status(200).json({ message: 'File uploaded successfully' });
@@ -47,6 +48,8 @@ app.get('/files/:topicId/:subtopicId', (req, res) => {
     res.status(404).json({ error: 'File not found' });
   }
 });
+
+//search 
 
 
 export default router;

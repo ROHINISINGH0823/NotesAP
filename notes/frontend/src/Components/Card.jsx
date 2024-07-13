@@ -16,7 +16,14 @@ function Card({ item }) {
             <p>{item.title}</p>
             <div className="card-actions justify-between">
               <div className="badge badge-outline">${item.price}</div>
-              <div className=" cursor-pointer px-2 py-1 rounded-full border-[2px] hover:bg-pink-500 hover:text-white duration-200">
+              <div
+                className="cursor-pointer px-2 py-1 rounded-full border-[2px] hover:bg-pink-500 hover:text-white duration-200"
+                style={{
+                  backgroundColor: "#5a3567",
+                  borderColor: "#5a3567",
+                  color: "#FFFFFF", // White text color
+                }}
+              >
                 Buy Now
               </div>
             </div>

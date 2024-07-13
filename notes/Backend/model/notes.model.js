@@ -6,7 +6,8 @@ const notesSchema=mongoose.Schema({
     price:Number,
     category:String,
     image:String,
-    title:String
+    title:String,
+    tags: [String]
 })
 
 const Notes=mongoose.model("Notes",notesSchema);

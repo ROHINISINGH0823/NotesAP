@@ -75,6 +75,22 @@ app.get("/files/:topicId/:subtopicId", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+app.get('/search', async (req, res) => {
+  try {
+    const { tag } = req.query;
+    
+    const topics = await Topic.find({ 'subtopics.tags': { $regex: new RegExp(tag, 'i') } }).select('name subtopics.$');
+
+    
+    if (topics.length === 0) {
+      return res.status(404).json({ message: 'No notes found for the given tag' });
+    }
+
+    res.status(200).json(topics);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 app.use(cors());
 app.use(express.json());
