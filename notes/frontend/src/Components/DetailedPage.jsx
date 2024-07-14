@@ -5,7 +5,7 @@ import PDFRenderer from './PDFRenderer';
 import { ClipLoader } from 'react-spinners';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Navbar from './Navbar'; // Import the Navbar component
+import Navbar from './Navbar';
 
 const DetailedPage = () => {
   const { id } = useParams();
@@ -24,7 +24,7 @@ const DetailedPage = () => {
 
         // Find the selected topic by ID
         const selectedTopic = topicsResponse.data.find(topic => topic._id === id);
-        
+
         if (selectedTopic) {
           setSelectedTopic(selectedTopic);
 
@@ -77,13 +77,14 @@ const DetailedPage = () => {
 
   return (
     <div>
-      <Navbar /> {/* Render the Navbar component */}
-      <div className="flex flex-col md:flex-row h-screen">
+      <Navbar />
+      <div className="flex flex-col md:flex-row h-screen mt-16 md:mt-0"> {/* Adjusted margin */}
         <Sidebar
           topics={topics}
           subtopics={subtopics}
           selectedTopic={selectedTopic}
           onTopicClick={handleTopicClick}
+          onSubtopicClick={handleSubtopicClick}
           setActivePdf={setPdfUrl}
           className="mt-8 md:mt-0" // Apply top margin for mobile and above screens
         />

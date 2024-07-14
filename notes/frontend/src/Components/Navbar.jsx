@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
@@ -56,7 +56,7 @@ function Navbar() {
       toast.success('Search completed');
 
       // Redirect to DetailedPage with search results
-      navigate('/topic/:id', { state: { searchResults } });
+      navigate(`/topic/${searchResults[0]._id}`, { state: { searchResults } });
     } catch (error) {
       console.error(error);
       toast.error('No notes');
@@ -174,19 +174,10 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               >
-                <path d="M21.64,13a1,1,0,0,0-1.15-.86,7,7,0,0,1-8-8A1,1,0,0,0,10.36,2.36,9,9,0,1,0,21.64,13Z" />
+                <path d="M21.64,13A1,1,0,0,0,20.78,12h-.09a7.53,7.53,0,0,1-9.68-9.68A1,1,0,0,0,9,1.36,10,10,0,1,0,22.64,14,1,1,0,0,0,21.64,13ZM12,20A8,8,0,0,1,6.92,4.32,9.45,9.45,0,0,0,10,12a9.45,9.45,0,0,0,7.68,3.08A8,8,0,0,1,12,20Z" />
               </svg>
             </label>
-            {authUser?.email ? (
-              <>
-                <Logout />
-                <span className="px-2 py-1 rounded-md dark:text-black bg-white">
-                  {authUser?.email}
-                </span>
-              </>
-            ) : (
-              <Login />
-            )}
+            {authUser ? <Logout /> : <Login />}
           </div>
         </div>
       </div>
@@ -195,4 +186,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

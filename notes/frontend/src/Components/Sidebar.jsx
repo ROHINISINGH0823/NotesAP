@@ -1,48 +1,91 @@
+import React, { useState, useEffect } from 'react';
 
-import React from 'react';
+const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicClick, setActivePdf }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [topSpacing, setTopSpacing] = useState('128px'); // Initial top spacing with navbar height
 
-const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, setActivePdf }) => {
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const navbarHeight = 64; // Fixed height of the navbar in pixels
+      if (window.innerWidth > 767) {
+        const screenHeight = window.innerHeight;
+        const topMargin = screenHeight * 0.2 + navbarHeight; // 20% of the screen height + navbar height
+        setTopSpacing(`${topMargin}px`);
+      } else {
+        setTopSpacing(`${navbarHeight + 64}px`); // Default top spacing + navbar height for narrower screens
+      }
+    };
+
+    handleResize(); // Set the initial top spacing
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <div className="sidebar w-full md:w-64 bg-gray-100 p-2 md:p-4 rounded-lg shadow-md md:max-h-96 md:overflow-y-auto mt-12 md:mt-16">
-      {selectedTopic ? (
-        <>
-          <button 
-            onClick={() => onTopicClick(null)} 
-            className="px-4 py-2 mb-3 bg-blue-500 text-white rounded"
-            style={{ backgroundColor: '#320342' }} // Adjusted color to a slightly darker shade
-          >
-            Back
-          </button>
-          <h2 className="text-xl font-bold mb-3">{selectedTopic.name}</h2>
+    <div className="relative">
+      <button 
+        onClick={toggleSidebar} 
+        className="md:hidden p-2 bg-blue-500 text-white fixed top-2 left-2 z-50 rounded"
+        style={{ backgroundColor: '#320342' }}
+      >
+        {isOpen ? (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        )}
+      </button>
+
+      <div 
+        className={`sidebar fixed left-0 h-full bg-gray-100 p-4 shadow-md transition-transform transform ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } md:static md:translate-x-0 md:w-64 md:overflow-y-auto rounded-lg z-40`}
+        style={{ top: topSpacing }}
+      >
+        {selectedTopic ? (
+          <>
+            <button 
+              onClick={() => onTopicClick(null)} 
+              className="px-4 py-2 mb-3 bg-blue-500 text-white rounded"
+              style={{ backgroundColor: '#320342' }}
+            >
+              Back
+            </button>
+            <h2 className="text-xl font-bold mb-3">{selectedTopic.name}</h2>
+            <ul>
+              {subtopics.map(subtopic => (
+                <li key={subtopic._id} className="mb-2">
+                  <button onClick={() => setActivePdf(`http://localhost:4001/files/${selectedTopic._id}/${subtopic._id}`)} className="text-blue-500 hover:underline">{subtopic.name}</button>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : (
           <ul>
-            {subtopics.map(subtopic => (
-              <li key={subtopic._id} className="mb-2">
+            {topics.map(topic => (
+              <li key={topic._id} className="mb-2">
                 <button 
-                  onClick={() => setActivePdf(`http://localhost:4001/files/${selectedTopic._id}/${subtopic._id}`)} 
+                  onClick={() => onTopicClick(topic)} 
                   className="hover:underline" 
                   style={{ color: '#320342' }}
                 >
-                  {subtopic.name}
+                  {topic.name}
                 </button>
               </li>
             ))}
           </ul>
-        </>
-      ) : (
-        <ul>
-          {topics.map(topic => (
-            <li key={topic._id} className="mb-2">
-              <button 
-                onClick={() => onTopicClick(topic)} 
-                className="hover:underline" 
-                style={{ color: '#320342' }}
-              >
-                {topic.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+        )}
+      </div>
     </div>
   );
 };

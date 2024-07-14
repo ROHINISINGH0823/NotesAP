@@ -19,13 +19,17 @@ const PDFRenderer = ({ pdfUrl }) => {
 
   return (
     <div style={{ height: containerHeight }} className="border-2 border-gray-300 p-1 bg-gray-100 w-full max-w-full overflow-hidden relative">
-      <Worker workerUrl={`//unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
+      <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
         <div className="w-full h-full absolute inset-0 overflow-auto">
-          <Viewer
-            fileUrl={pdfUrl}
-            onDocumentLoadSuccess={handleDocumentLoadSuccess}
-            onDocumentLoadError={handleDocumentLoadError}
-          />
+          {pdfUrl ? (
+            <Viewer
+              fileUrl={pdfUrl}
+              onDocumentLoadSuccess={handleDocumentLoadSuccess}
+              onDocumentLoadError={handleDocumentLoadError}
+            />
+          ) : (
+            <p className="text-center text-gray-500">No PDF URL provided</p>
+          )}
         </div>
       </Worker>
       {error && (

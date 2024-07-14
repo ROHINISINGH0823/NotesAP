@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import MainTopics from './Components/MainTopics';
 import AdminUpload from './Components/AdminUpload';
 import Home from './home/Home';
@@ -10,7 +10,6 @@ import { ToastContainer } from 'react-toastify';
 import { Toaster } from 'react-hot-toast';
 import DetailedPage from './Components/DetailedPage';
 import Navbar from './Components/Navbar';
-import { Navigate } from 'react-router-dom';
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -32,15 +31,17 @@ function App() {
     <div className="App p-6 dark:bg-slate-900 dark:text-white">
       <ToastContainer />
       <Toaster />
-      <Navbar onSearchSubmit={onSearchSubmit} /> {/* Pass onSearchSubmit as prop to Navbar */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/main-topics" element={<MainTopics />} />
-        <Route path="/topic/:id" element={<DetailedPage selectedTopic={selectedTopic} selectedSubtopicId={selectedSubtopicId} />} />
-        <Route path="/admin-upload" element={authUser ? <AdminUpload /> : <Navigate to="/signup" />} />
-        <Route path="/course" element={authUser ? <Courses /> : <Navigate to="/signup" />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
+     
+        <Navbar onSearchSubmit={onSearchSubmit} /> {/* Pass onSearchSubmit as prop to Navbar */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/main-topics" element={<MainTopics />} />
+          <Route path="/topic/:id" element={<DetailedPage selectedTopic={selectedTopic} selectedSubtopicId={selectedSubtopicId} />} />
+          <Route path="/admin-upload" element={authUser ? <AdminUpload /> : <Navigate to="/signup" />} />
+          <Route path="/course" element={authUser ? <Courses /> : <Navigate to="/signup" />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      
     </div>
   );
 }
