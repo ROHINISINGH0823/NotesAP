@@ -68,14 +68,19 @@ function Navbar() {
       <li>
         <a href="/">Home</a>
       </li>
-      <li>
-        <a href="/admin-upload">Admin</a>
-      </li>
+      {authUser && authUser.email === "rohinisingh082@gmail.com" && (
+        <li>
+          <a href="/admin-upload">Admin</a>
+        </li>
+      )}
       <li>
         <a href="/topic/:id">PDF</a>
       </li>
       <li>
         <a href="/course">Course</a>
+      </li>
+      <li>
+        <a href="/forgot-password">FORGOT</a>
       </li>
       <li>
         <a>Contact</a>
@@ -174,10 +179,23 @@ function Navbar() {
                 viewBox="0 0 24 24"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               >
-                <path d="M21.64,13A1,1,0,0,0,20.78,12h-.09a7.53,7.53,0,0,1-9.68-9.68A1,1,0,0,0,9,1.36,10,10,0,1,0,22.64,14,1,1,0,0,0,21.64,13ZM12,20A8,8,0,0,1,6.92,4.32,9.45,9.45,0,0,0,10,12a9.45,9.45,0,0,0,7.68,3.08A8,8,0,0,1,12,20Z" />
+                <path d="M21.64,13A1,1,0,0,0,20.78,12H20a8,8,0,0,1-8-8V3.22a1,1,0,0,0-1-1A9.78,9.78,0,1,0,21.64,13ZM11,20.44A7.78,7.78,0,0,1,4.56,4.56,7.76,7.76,0,0,0,11,11Z" />
               </svg>
-            </label>
-            {authUser ? <Logout /> : <Login />}
+            </label>  {authUser ? (
+              <Logout />
+            ) : (
+              <div className="">
+                <a
+                  className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer"
+                  onClick={() =>
+                    document.getElementById("my_modal_3").showModal()
+                  }
+                >
+                  Login
+                </a>
+                <Login />
+              </div>
+            )} 
           </div>
         </div>
       </div>

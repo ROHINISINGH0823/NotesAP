@@ -50,23 +50,25 @@ const AdminUpload = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100">
+    <>
       <Navbar />
-      <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8 mt-8 flex flex-col md:flex-row items-center">
-        {/* Input container */}
-        <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full md:w-1/2">
-          <input type="file" onChange={handleFileChange} required />
-          <input type="text" placeholder="Topic" value={topic} onChange={handleTopicChange} required />
-          <input type="text" placeholder="Subtopic" value={subtopic} onChange={handleSubtopicChange} required />
-          <input type="text" placeholder="Tags (comma-separated)" value={tags} onChange={handleTagsChange} required />
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
-        </form>
-        {/* Image container */}
-        <div className="flex-shrink-0 mt-4 md:mt-0 md:ml-4">
-          <img src={b1} alt="Image" className="w-64 h-64 object-cover rounded-lg shadow-lg" />
+      <div className="flex items-center justify-center h-screen">
+        <div className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8 mt-8 flex flex-col md:flex-row items-center">
+          {/* Input container */}
+          <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full md:w-1/2 items-center">
+            <input type="file" onChange={handleFileChange} required />
+            <input type="text" placeholder="Topic" value={topic} onChange={handleTopicChange} required />
+            <input type="text" placeholder="Subtopic" value={subtopic} onChange={handleSubtopicChange} required />
+            <input type="text" placeholder="Tags (comma-separated)" value={tags} onChange={handleTagsChange} required />
+            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
+          </form>
+          {/* Image container */}
+          <div className="flex-shrink-0 mt-4 md:mt-0 md:ml-4">
+            <img src={b1} alt="Image" className="w-64 h-64 object-cover rounded-lg shadow-lg" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

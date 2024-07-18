@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import path from "node:path";
-
+import path from "path";
+import jwt from 'jsonwebtoken';
+import bcryptjs from 'bcryptjs';
 import cors from "cors";
 
 import notesRoute from "./route/notes.route.js";
@@ -11,6 +12,10 @@ import topicsRouter from "./route/topics.js";
 import uploadsRouter from "./route/uploads.js";
 
 import Topic from "./model/Topic.js";
+
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
+import User from "./model/user.model.js";
 
 const app = express();
 app.use(cors());
@@ -31,14 +36,15 @@ try {
 } catch (error) {
   console.log("Error", error);
 }
-app.get("/", (req, res) => {
-  res.send("Hii Arohi");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hii Arohi");
+// });
 
 //defining routes
 
 app.use("/notes", notesRoute);
 app.use("/user", userRoute);
+
 
 app.get("/files/:topicId/:subtopicId", async (req, res) => {
   try {
@@ -97,6 +103,59 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use("/topics", topicsRouter);
 app.use("/upload", uploadsRouter);
+
+//deployment
+
+// if(process.env.NODE_ENV==="production")
+// {
+//     const dirPath=path.resolve();
+//     app.use(express.static("frontend/dist"));
+//     app.get("*",(req,res)=>{
+//       res.sendFile(path.resolve(dirPath,"frontend","dist","index.html"));
+//     })
+
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.KEY, { expiresIn: '5m' });
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: 'Password Reset',
+      text: `http://localhost:5173/auth/reset/${token}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error sending email' });
+      } else {
+        console.log('Email sent: ' + info.response);
+        return res.status(200).json({ message: 'Password reset email sent' });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);

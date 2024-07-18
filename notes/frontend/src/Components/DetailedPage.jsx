@@ -98,7 +98,7 @@ const DetailedPage = () => {
               {pdfUrl ? (
                 <PDFRenderer pdfUrl={pdfUrl} />
               ) : (
-                <div className="p-4 bg-gray-100 rounded-lg shadow-md">Select a topic to view the PDF</div>
+                <div className="p-4 bg-gray-100 rounded-lg shadow-md mt-14">Select a topic to view the PDF</div>
               )}
             </>
           )}

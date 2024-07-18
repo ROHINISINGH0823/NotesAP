@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicClick, setActivePdf }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [topSpacing, setTopSpacing] = useState('128px'); // Initial top spacing with navbar height
+  const [topSpacing, setTopSpacing] = useState('64px'); // Initial top spacing with navbar height
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -13,10 +13,10 @@ const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicCli
       const navbarHeight = 64; // Fixed height of the navbar in pixels
       if (window.innerWidth > 767) {
         const screenHeight = window.innerHeight;
-        const topMargin = screenHeight * 0.2 + navbarHeight; // 20% of the screen height + navbar height
+        const topMargin = screenHeight * 0.001 + navbarHeight; // Reduced to 0.1% of the screen height + navbar height
         setTopSpacing(`${topMargin}px`);
       } else {
-        setTopSpacing(`${navbarHeight + 64}px`); // Default top spacing + navbar height for narrower screens
+        setTopSpacing('0px'); // No top spacing for narrower screens
       }
     };
 
@@ -29,7 +29,8 @@ const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicCli
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ top: topSpacing }}>
+      {/* Toggle button */}
       <button 
         onClick={toggleSidebar} 
         className="md:hidden p-2 bg-blue-500 text-white fixed top-2 left-2 z-50 rounded"
@@ -46,12 +47,14 @@ const Sidebar = ({ topics, subtopics, selectedTopic, onTopicClick, onSubtopicCli
         )}
       </button>
 
+      {/* Sidebar container */}
       <div 
-        className={`sidebar fixed left-0 h-full bg-gray-100 p-4 shadow-md transition-transform transform ${
+        className={`sidebar fixed left-0 h-720 bg-gray-100 p-4 shadow-md transition-transform transform ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } md:static md:translate-x-0 md:w-64 md:overflow-y-auto rounded-lg z-40`}
-        style={{ top: topSpacing }}
+        style={{ height: '710px' }}
       >
+        {/* Sidebar content */}
         {selectedTopic ? (
           <>
             <button 
