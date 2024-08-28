@@ -1,9 +1,9 @@
-import { useForm } from "react-hook-form";
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FaEnvelope, FaLock } from 'react-icons/fa'; // Import Font Awesome icons
+import { FaEnvelope, FaLock, FaIdBadge } from 'react-icons/fa'; // Import Font Awesome icons
+import { useForm } from "react-hook-form";
 import './styles.css';
 
 export default function Login() {
@@ -13,10 +13,13 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     const userInfo = {
       email: data.email,
       password: data.password,
+      rollNumber: data.rollNumber,
     };
 
     try {
@@ -52,6 +55,22 @@ export default function Login() {
             
             <h3 className="font-bold text-lg">Login</h3>
             
+            {/* Roll Number input with icon */}
+            <div className='mt-4 text-center relative flex flex-col items-center'>
+              <label htmlFor="rollNumber" className="sr-only">Roll Number</label>
+              <div className="relative flex items-center">
+                <FaIdBadge className="absolute left-3 text-gray-400" />
+                <input
+                  id="rollNumber"
+                  type="text"
+                  placeholder='Enter your roll number'
+                  className='w-80 px-9 py-3 border rounded-md outline-none text-input-color pl-12'
+                  {...register("rollNumber", { required: true })}
+                />
+              </div>
+              {errors.rollNumber && <span className="text-sm text-white mt-1">This field is required</span>}
+            </div>
+
             {/* Email input with icon */}
             <div className='mt-4 text-center relative flex flex-col items-center'>
               <label htmlFor="email" className="sr-only">Email</label>
@@ -92,9 +111,16 @@ export default function Login() {
               
               <p className='text-sm mt-4 flex items-center'>
                 Not a user?{" "}
-                <Link to="/signup" className='ml-2 underline text-white'>
+                <button
+                  type="button"
+                  className='ml-2 underline text-white'
+                  onClick={() => {
+                    document.getElementById("my_modal_3").close(); // Close the modal
+                    navigate("/signup"); // Navigate to signup
+                  }}
+                >
                   Signup
-                </Link>
+                </button>
               </p>
             </div>
           </form>

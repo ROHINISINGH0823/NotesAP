@@ -11,8 +11,9 @@ import { ToastContainer } from 'react-toastify';
 import { Toaster } from 'react-hot-toast';
 import DetailedPage from './Components/DetailedPage';
 import Navbar from './Components/Navbar';
-import ForgotPassword from './Components/ForgotPassword';
-import ResetPassword from './Components/ResetPassword';
+
+import UserProfile from './Components/UserProfile';
+import Contact from './Components/Contact';
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -43,8 +44,9 @@ function App() {
           <Route path="/admin-upload" element={authUser ? <AdminUpload /> : <Navigate to="/signup" />} />
           <Route path="/course" element={authUser ? <Courses /> : <Navigate to="/signup" />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset/:token" element={<ResetPassword />} />
+        <Route path="/contact" element={<Contact/>}/>
+
+          <Route path="/user" element={<UserProfile />} />
         </Routes>
      
     </div>

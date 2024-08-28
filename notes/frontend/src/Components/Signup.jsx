@@ -1,26 +1,23 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser, FaIdBadge } from 'react-icons/fa';
 import './styles.css';
 
 const Signup = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
     const userInfo = {
       fullname: data.fullname,
       email: data.email,
+      rollNumber: data.rollNumber,  // Include roll number in the signup data
       password: data.password,
     };
     try {
@@ -43,7 +40,7 @@ const Signup = () => {
     <div className='flex h-screen items-center justify-center bg-black'>
       <div className="w-[600px]">
         <div className="modal-box glass-effect">
-          <form onSubmit={handleSubmit(onSubmit)} method="dialog" className="flex flex-col items-center">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center">
             {/* Close button */}
             <Link to="/" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</Link>
             
@@ -63,6 +60,22 @@ const Signup = () => {
                 />
               </div>
               {errors.fullname && <span className="text-sm text-white mt-1">This field is required</span>}
+            </div>
+
+            {/* Roll Number input with icon */}
+            <div className='input-container mt-4 text-center flex flex-col items-center'>
+              <label htmlFor="rollNumber" className="sr-only">Roll Number</label>
+              <div className="relative flex items-center">
+                <FaIdBadge className="absolute left-3 text-gray-400" />
+                <input 
+                  id="rollNumber" 
+                  type="text" 
+                  placeholder='Enter your roll number' 
+                  className='w-80 px-9 py-3 border rounded-md outline-none text-input-color pl-12 mt-2' 
+                  {...register("rollNumber", { required: true })}
+                />
+              </div>
+              {errors.rollNumber && <span className="text-sm text-white mt-1">This field is required</span>}
             </div>
             
             {/* Email input with icon */}
@@ -99,7 +112,7 @@ const Signup = () => {
             
             {/* Buttons */}
             <div className='flex flex-col items-center mt-4 w-full'>
-              <button className='bg-white text-black border border-black rounded-md px-3 py-1 hover:bg-gray-200 duration-200'>
+              <button type='submit' className='bg-white text-black border border-black rounded-md px-3 py-1 hover:bg-gray-200 duration-200'>
                 Signup
               </button>
               
@@ -108,9 +121,9 @@ const Signup = () => {
                 <button 
                   type="button" 
                   className='ml-2 underline text-white' 
-                  onClick={() => { document.getElementById("my_modal_signup").close(); document.getElementById("my_modal_3").showModal(); }}
+                  onClick={() => setIsLoginModalOpen(true)}
                 >
-                   Login
+                  Login
                 </button>
               </p>
             </div>

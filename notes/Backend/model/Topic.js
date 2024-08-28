@@ -3,13 +3,15 @@ import mongoose from 'mongoose';
 const SubtopicSchema = new mongoose.Schema({
   name: String,
   filePath: String,
-  tags: [String]
+  tags: [String],
 });
 
 const TopicSchema = new mongoose.Schema({
   name: String,
   subtopics: [SubtopicSchema],
+  rollNumber: String, // Associate each topic with a roll number
 });
 
 const Topic = mongoose.model('Topic', TopicSchema);
+
 export default Topic;

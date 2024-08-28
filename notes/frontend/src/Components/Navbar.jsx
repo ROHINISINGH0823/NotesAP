@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Login from "./Login";
 import Logout from "./Logout";
+import UserProfile from "./UserProfile";
 import { useAuth } from "../context/AuthProvider";
 import './styles.css';
 
@@ -68,7 +69,7 @@ function Navbar() {
       <li>
         <a href="/">Home</a>
       </li>
-      {authUser && authUser.email === "rohinisingh082@gmail.com" && (
+      {authUser && authUser.email === "rohinisingh00@gmail.com" && (
         <li>
           <a href="/admin-upload">Admin</a>
         </li>
@@ -79,11 +80,9 @@ function Navbar() {
       <li>
         <a href="/course">Course</a>
       </li>
+     
       <li>
-        <a href="/forgot-password">FORGOT</a>
-      </li>
-      <li>
-        <a>Contact</a>
+        <a href="/contact">Contact</a>
       </li>
       <li>
         <a>About</a>

@@ -25,8 +25,8 @@ function Banner() {
         <div className="w-full order-2 md:order-1 md:w-1/2 mt-12 md:mt-36">
           <div className="space-y-8">
             <h1 className="text-2xl md:text-4xl font-bold">
-              Hello, welcomes here to learn something{" "}
-              <span className="gradient-text">new everyday!!!</span>
+            Welcome! Discover something new every day with our latest{" "}
+              <span className="gradient-text">updates and stylish notes!</span>
             </h1>
             <p className="text-sm md:text-xl">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor,

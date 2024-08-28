@@ -1,12 +1,35 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Card({ item }) {
+  const navigate = useNavigate();
+
+  const handleViewClick = async () => {
+    try {
+      // Fetch the topic based on the item name
+      const response = await axios.get(`http://localhost:4001/search?tag=${item.name}`);
+      const searchResults = response.data;
+
+      if (searchResults.length > 0) {
+        // Redirect to the detailed page with the matched topic
+        navigate(`/topic/${searchResults[0]._id}`, { state: { searchResults } });
+      } else {
+        toast.error('No matching topic found');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('An error occurred while fetching the topic');
+    }
+  };
+
   return (
     <>
       <div className="mt-4 my-3 p-3">
         <div className="card w-92 bg-base-100 shadow-xl hover:scale-105 duration-200 dark:bg-slate-900 dark:text-white dark:border">
           <figure>
-            <img src={item.image} alt="Shoes" />
+            <img src={item.image} alt={item.name} onClick={handleViewClick} />
           </figure>
           <div className="card-body">
             <h2 className="card-title">
@@ -23,8 +46,9 @@ function Card({ item }) {
                   borderColor: "#5a3567",
                   color: "#FFFFFF", // White text color
                 }}
+                onClick={handleViewClick}
               >
-                Buy Now
+                View
               </div>
             </div>
           </div>

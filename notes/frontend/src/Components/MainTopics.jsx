@@ -8,7 +8,7 @@ const MainTopics = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4001/topics')
+    axios.get('http://localhost:4001/topic')
       .then(response => {
         setTopics(response.data);
         setLoading(false);
