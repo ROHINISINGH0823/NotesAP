@@ -14,12 +14,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rollNumber: {
-    type: String,
+  audience: {
+    type: [String],  // An array of strings
     required: true,
-    unique: true,  // Roll number should be unique
   },
- 
 });
 
 const User = mongoose.model("User", userSchema);

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { FaEnvelope, FaLock, FaUser, FaIdBadge } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser, FaIdBadge } from 'react-icons/fa'; // Make sure FaIdBadge is imported
 import './styles.css';
 
 const Signup = () => {
@@ -17,7 +17,7 @@ const Signup = () => {
     const userInfo = {
       fullname: data.fullname,
       email: data.email,
-      rollNumber: data.rollNumber,  // Include roll number in the signup data
+      audience: data.audience,  // Include audience in the signup data
       password: data.password,
     };
     try {
@@ -62,20 +62,23 @@ const Signup = () => {
               {errors.fullname && <span className="text-sm text-white mt-1">This field is required</span>}
             </div>
 
-            {/* Roll Number input with icon */}
+            {/* Audience dropdown with icon */}
             <div className='input-container mt-4 text-center flex flex-col items-center'>
-              <label htmlFor="rollNumber" className="sr-only">Roll Number</label>
+              <label htmlFor="audience" className="sr-only">Audience</label>
               <div className="relative flex items-center">
                 <FaIdBadge className="absolute left-3 text-gray-400" />
-                <input 
-                  id="rollNumber" 
-                  type="text" 
-                  placeholder='Enter your roll number' 
+                <select 
+                  id="audience" 
                   className='w-80 px-9 py-3 border rounded-md outline-none text-input-color pl-12 mt-2' 
-                  {...register("rollNumber", { required: true })}
-                />
+                  {...register("audience", { required: true })}
+                >
+                  <option value="">Select your audience</option>
+                  <option value="one">One</option>
+                  <option value="two">Two</option>
+                  <option value="three">Three</option>
+                </select>
               </div>
-              {errors.rollNumber && <span className="text-sm text-white mt-1">This field is required</span>}
+              {errors.audience && <span className="text-sm text-white mt-1">This field is required</span>}
             </div>
             
             {/* Email input with icon */}

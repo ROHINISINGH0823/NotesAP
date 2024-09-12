@@ -8,18 +8,19 @@ import cors from "cors";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 
+// TODO:
+// - add jwt in signin
+// - send jwt token for each request in frontend
+//     at least /topics/ should send "Authorization: Bearer <jwt_token>"
+
 // Routes
-import topics2Router from "./route/topics2.js";
 import notesRoute from "./route/notes.route.js";
-import topics3Router from "./route/topic3.js";
-import topics4Router from "./route/topic4.js";
 import userRoute from "./route/user.route.js";
 import topicsRouter from "./route/topics.js";
 import uploadsRouter from "./route/uploads.js";
 
 // Models
 import Topic from "./model/Topic.js";
-import Topic2 from "./model/Topic2.js";
 import User from "./model/user.model.js";
 
 // Configuration
@@ -33,16 +34,14 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose
+  .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
-  .catch(error => console.error("Error connecting to MongoDB:", error));
+  .catch((error) => console.error("Error connecting to MongoDB:", error));
 
 // Routes
 app.use("/notes", notesRoute);
 app.use("/user", userRoute);
-app.use("/topics2", topics2Router);
-app.use("/topics3", topics3Router);
-app.use("/topics4", topics4Router);
 app.use("/topics", topicsRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/upload", uploadsRouter);
@@ -53,15 +52,35 @@ app.get("/files/:topicId/:subtopicId", async (req, res) => {
     const { topicId, subtopicId } = req.params;
 
     // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(topicId) || !mongoose.Types.ObjectId.isValid(subtopicId)) {
+    if (
+      !mongoose.Types.ObjectId.isValid(topicId) ||
+      !mongoose.Types.ObjectId.isValid(subtopicId)
+    ) {
       return res.status(400).json({ message: "Invalid topic or subtopic ID" });
     }
 
     // Find the topic by ID
-    const topic = await Topic.findById(topicId);
-    if (!topic) {
-      return res.status(404).json({ message: "Topic not found" });
+    router.get(
+  '/',
+  authenticate, // Ensure the route is protected
+  async (req, res) => {
+    try {
+      const audience = req.user.audience;
+
+      if (!audience || !Array.isArray(audience)) {
+        return res.status(400).json({ message: 'Invalid audience data' });
+      }
+
+      // Find topics based on the user's audience
+      const topics = await Topic.find({ audience: { $in: audience } });
+
+      res.json(topics);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: 'Server error' });
     }
+  }
+);
 
     const subtopic = topic.subtopics.id(subtopicId);
     if (!subtopic) {
@@ -86,11 +105,14 @@ app.get("/search", async (req, res) => {
     const { tag } = req.query;
 
     // Search for topics containing the tag in subtopics
-    const topics = await Topic.find({ "subtopics.tags": { $regex: new RegExp(tag, "i") } })
-      .select("name subtopics.$");
+    const topics = await Topic.find({
+      "subtopics.tags": { $regex: new RegExp(tag, "i") },
+    }).select("name subtopics.$");
 
     if (topics.length === 0) {
-      return res.status(404).json({ message: "No notes found for the given tag" });
+      return res
+        .status(404)
+        .json({ message: "No notes found for the given tag" });
     }
 
     res.status(200).json(topics);

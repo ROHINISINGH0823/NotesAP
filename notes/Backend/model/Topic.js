@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const SubtopicSchema = new mongoose.Schema({
   name: String,
@@ -9,9 +9,10 @@ const SubtopicSchema = new mongoose.Schema({
 const TopicSchema = new mongoose.Schema({
   name: String,
   subtopics: [SubtopicSchema],
-  rollNumber: String, // Associate each topic with a roll number
+  rollNumber: String,
+  audience: [String],
 });
 
-const Topic = mongoose.model('Topic', TopicSchema);
+const Topic = mongoose.model("Topic", TopicSchema);
 
 export default Topic;

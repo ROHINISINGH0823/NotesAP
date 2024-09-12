@@ -1,14 +1,14 @@
+
 import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs";
-
 export const signup = async (req, res) => {
   try {
-    const { fullname, email, password, rollNumber } = req.body;
+    const { fullname, email, password, audience } = req.body;
 
-    // Check if a user with the same email or roll number already exists
-    const userExists = await User.findOne({ $or: [{ email }, { rollNumber }] });
+    // Check if a user with the same email already exists
+    const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: "User with this email or roll number already exists" });
+      return res.status(400).json({ message: "User with this email already exists" });
     }
 
     // Hash the password
@@ -19,7 +19,7 @@ export const signup = async (req, res) => {
       fullname,
       email,
       password: hashPassword,
-      rollNumber,  // Store roll number in the user document
+      audience,  // Store audience in the user document
     });
 
     // Save the new user to the database
@@ -32,7 +32,7 @@ export const signup = async (req, res) => {
         _id: createdUser._id,
         fullname: createdUser.fullname,
         email: createdUser.email,
-        rollNumber: createdUser.rollNumber,  // Include roll number in response
+        audience: createdUser.audience,  // Include audience in response
       },
     });
   } catch (error) {
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
         _id: user._id,
         fullname: user.fullname,
         email: user.email,
-        rollNumber: user.rollNumber,  // Include roll number in response
+        audience: user.audience,  // Include audience in response
       },
     });
   } catch (error) {

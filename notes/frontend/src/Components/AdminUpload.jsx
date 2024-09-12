@@ -11,7 +11,7 @@ const AdminUpload = () => {
   const [subtopic, setSubtopic] = useState('');
   const [tags, setTags] = useState('');
   const [rollNumber, setRollNumber] = useState('');
-  const [schema, setSchema] = useState('Topic'); // Updated schema value to match server
+  const [audience, setAudience] = useState('Topic');
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -33,9 +33,6 @@ const AdminUpload = () => {
     setRollNumber(e.target.value);
   };
 
-  const handleSchemaChange = (e) => {
-    setSchema(e.target.value); // Update schema state
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,7 +42,7 @@ const AdminUpload = () => {
     formData.append('subtopic', subtopic);
     formData.append('tags', tags);
     formData.append('rollNumber', rollNumber);
-    formData.append('schemaType', schema); // Append schemaType to form data
+    formData.append('audience', audience); // Append schemaType to form data
 
     axios.post('http://localhost:4001/upload', formData)
       .then(response => {
@@ -55,7 +52,7 @@ const AdminUpload = () => {
         setSubtopic('');
         setTags('');
         setRollNumber('');
-        setSchema('Topic'); // Reset schema selection
+        setAudience('Topic'); // Reset schema selection
       })
       .catch(error => {
         console.error(error);
@@ -75,12 +72,11 @@ const AdminUpload = () => {
             <input type="text" placeholder="Tags (comma-separated)" value={tags} onChange={handleTagsChange} required />
             <input type="text" placeholder="Roll Number" value={rollNumber} onChange={handleRollNumberChange} required />
             
-            {/* Dropdown for selecting the schema */}
-            <select value={schema} onChange={handleSchemaChange} className="px-4 py-2 border rounded" required>
-              <option value="Topic">Topic 1</option>
-              <option value="Topic2">Topic 2</option>
-              <option value="Topic3">Topic 3</option> {/* Added Topic 3 */}
-              <option value="Topic4">Topic 4</option> {/* Added Topic 4 */}
+            <select value={audience} onChange={e => setAudience(e.target.value)} className="px-4 py-2 border rounded" required>
+              <option value="one">First year</option>
+              <option value="two">Second year</option>
+              <option value="three">Third year</option>
+              <option value="four">Fourth year</option>
             </select>
             
             <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
