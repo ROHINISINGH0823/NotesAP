@@ -59,28 +59,7 @@ app.get("/files/:topicId/:subtopicId", async (req, res) => {
       return res.status(400).json({ message: "Invalid topic or subtopic ID" });
     }
 
-    // Find the topic by ID
-    router.get(
-  '/',
-  authenticate, // Ensure the route is protected
-  async (req, res) => {
-    try {
-      const audience = req.user.audience;
-
-      if (!audience || !Array.isArray(audience)) {
-        return res.status(400).json({ message: 'Invalid audience data' });
-      }
-
-      // Find topics based on the user's audience
-      const topics = await Topic.find({ audience: { $in: audience } });
-
-      res.json(topics);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).json({ message: 'Server error' });
-    }
-  }
-);
+    const topic = await Topic.findById(topicId);
 
     const subtopic = topic.subtopics.id(subtopicId);
     if (!subtopic) {

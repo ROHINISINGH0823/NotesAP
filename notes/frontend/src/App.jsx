@@ -14,6 +14,7 @@ import Navbar from './Components/Navbar';
 
 import UserProfile from './Components/UserProfile';
 import Contact from './Components/Contact';
+import Login from './Components/Login';
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -44,6 +45,8 @@ function App() {
           <Route path="/admin-upload" element={authUser ? <AdminUpload /> : <Navigate to="/signup" />} />
           <Route path="/course" element={authUser ? <Courses /> : <Navigate to="/signup" />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+
         <Route path="/contact" element={<Contact/>}/>
 
           <Route path="/user" element={<UserProfile />} />

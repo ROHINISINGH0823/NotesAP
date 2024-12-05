@@ -1,6 +1,7 @@
-
 import User from "../model/user.model.js";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 export const signup = async (req, res) => {
   try {
     const { fullname, email, password, audience } = req.body;
@@ -8,7 +9,9 @@ export const signup = async (req, res) => {
     // Check if a user with the same email already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(400).json({ message: "User with this email already exists" });
+      return res
+        .status(400)
+        .json({ message: "User with this email already exists" });
     }
 
     // Hash the password
@@ -19,7 +22,7 @@ export const signup = async (req, res) => {
       fullname,
       email,
       password: hashPassword,
-      audience,  // Store audience in the user document
+      audience, // Store audience in the user document
     });
 
     // Save the new user to the database
@@ -32,7 +35,7 @@ export const signup = async (req, res) => {
         _id: createdUser._id,
         fullname: createdUser.fullname,
         email: createdUser.email,
-        audience: createdUser.audience,  // Include audience in response
+        audience: createdUser.audience, // Include audience in response
       },
     });
   } catch (error) {
@@ -53,6 +56,11 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
+    const token = jwt.sign(
+      { id: user._id, email: user.email, audience: user.audience },
+      "your_jwt_secret"
+    );
+
     // Return a success response with user details (excluding password)
     res.status(200).json({
       message: "Login successful",
@@ -60,8 +68,9 @@ export const login = async (req, res) => {
         _id: user._id,
         fullname: user.fullname,
         email: user.email,
-        audience: user.audience,  // Include audience in response
+        audience: user.audience, // Include audience in response
       },
+      token,
     });
   } catch (error) {
     console.log("Error: " + error.message);

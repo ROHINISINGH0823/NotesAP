@@ -13,6 +13,7 @@ export default function AuthProvider({ children }) {
       localStorage.setItem("Users", JSON.stringify(authUser));
     } else {
       localStorage.removeItem("Users");
+      localStorage.removeItem("token");
     }
   }, [authUser]);
 
