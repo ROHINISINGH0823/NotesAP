@@ -33,9 +33,7 @@ export default function Course() {
       <p className="mt-12">
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro,
         assumenda? Repellendus, iste corrupti? Tempore laudantium
-        repellendus accusamus accusantium sed architecto odio, nisi expedita
-        quas quidem nesciunt debitis dolore non aspernatur praesentium
-        assumenda sint quibusdam, perspiciatis, explicabo sequi fugiat amet
+        repellendus accusamus accusantium sed architecto odio, n
         animi eos aut. Nobis quisquam reiciendis sunt quis sed magnam
         consequatur!
       </p>

@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/effect-cards';
+import "swiper/css";
+import "swiper/css/effect-cards";
 
-import './styles.css';
+import "./styles.css";
 
 // import required modules
-import { EffectCards } from 'swiper/modules';
+import { EffectCards } from "swiper/modules";
 
 import b3 from "/b3.png";
 import b1 from "/b1.png";
@@ -25,13 +25,13 @@ function Banner() {
         <div className="w-full order-2 md:order-1 md:w-1/2 mt-12 md:mt-36">
           <div className="space-y-8">
             <h1 className="text-2xl md:text-4xl font-bold">
-            Welcome! Discover something new every day with our latest{" "}
+              Welcome! Discover something new every day with our latest{" "}
               <span className="gradient-text">updates and stylish notes!</span>
             </h1>
             <p className="text-sm md:text-xl">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor,
-              et totam. Tempora amet atque expedita, quae corrupti totam sed
-              pariatur corporis at veniam est voluptas animi!
+              Capture ideas, organize tasks, and stay productive with our
+              intuitive notes app. Effortlessly save, categorize, and access
+              your notes anytime, anywhere.
             </p>
             <label className="input input-bordered flex items-center gap-2">
               <svg
@@ -46,11 +46,13 @@ function Banner() {
               <input type="text" className="grow" placeholder="Email" />
             </label>
           </div>
-          <button className="btn mt-6 bg-custom-purple text-white hover:bg-custom-purple-dark focus:bg-custom-purple-dark">Get Started</button>
+          <button className="btn mt-6 bg-custom-purple text-white hover:bg-custom-purple-dark focus:bg-custom-purple-dark">
+            Get Started
+          </button>
         </div>
         <div className="order-1 w-full mt-20 md:w-1/2 relative">
           <Swiper
-            effect={'cards'}
+            effect={"cards"}
             grabCursor={true}
             modules={[EffectCards]}
             className="mySwiper"

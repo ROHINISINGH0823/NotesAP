@@ -134,9 +134,7 @@ function Navbar() {
                 {navItems}
               </ul>
             </div>
-            <a href="/" className=" text-2xl font-bold cursor-pointer">
-              bookStore
-            </a>
+            <a href="/" className=" text-2xl font-bold cursor-pointer">NoteHive</a>
           </div>
           <div className="navbar-end space-x-3">
             <div className="navbar-center hidden lg:flex">
